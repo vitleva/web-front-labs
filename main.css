@@ -1,0 +1,30 @@
+body {
+    background-color: beige;
+    color: rgb(139, 38, 38);
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    margin: 10px;
+}
+main {
+    color: rgb(139, 38, 38);
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+footer {
+    background-color: rgb(221, 209, 182);
+    color: rgb(38, 15, 15);
+    font-family:'Times New Roman', Times, serif;
+    margin: 0px;
+    padding: 5px;
+}
+header {
+    background-color: rgb(221, 209, 182);
+    color: rgb(38, 15, 15);
+    font-family:'Times New Roman', Times, serif;
+    margin: 0px;
+    padding: 5px;
+}
+li {
+    font-size: 16pt;
+}
+a {
+    text-decoration: none;
+}
