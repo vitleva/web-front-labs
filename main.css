@@ -25,6 +25,20 @@ header {
 li {
     font-size: 16pt;
 }
-a {
+a:link {
     text-decoration: none;
+    color: black;
+}
+a:visited {
+    text-decoration: none;
+    color: rgb(75, 75, 75);
+}
+a:hover {
+    color: rgb(191, 3, 3);
+    text-decoration: underline;
+    text-shadow: 10px 5px 5px #0003;
+}
+a:active {
+    color: black;
+    opacity: 0.3;
 }
