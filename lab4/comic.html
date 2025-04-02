@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Витлева Анастасия Александровна. Лабораторная 4</title>
+        <link rel="stylesheet" href="../main.css">
+        <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="../favicon-32x32.png">
+        <link rel="icon" href="../favicon-16x16.png">
+        <style>
+            div { 
+                text-align: center;
+            }
+
+            .bubble1, .bubble2, .bubble3, .bubble4 {
+                border: 2px solid gainsboro;
+                background: linear-gradient(to right,rgb(189, 211, 225), white);
+                color: black;
+                position: absolute;
+                text-align: center;
+                border-radius: 50%;
+                padding: 10px;
+                font-size: 16px;
+                box-shadow: 3px 3px 5px rgba(37, 37, 37, 0.543);
+                opacity: 0; 
+                transition: opacity 0.3s ease-in-out; /* Плавное появление */
+        }
+
+            .bubble1 {
+                top: 80px;
+                left: 500px;
+                width: 100px;
+                height: 40px;
+                z-index: 4;
+                display: flex;
+                align-items: center;
+                padding-left: 20px;
+            }
+
+            .bubble2 {
+                top: 120px;
+                left: 600px;
+                width: 50px;
+                height: 20px;
+                z-index: 3;
+            }
+
+            .bubble3 {
+                top: 150px;
+                left: 650px;
+                width: 35px;
+                height: 15px;
+                z-index: 2;
+            }
+
+            .bubble4 {
+                top: 170px;
+                left: 700px;
+                width: 25px;
+                height: 10px;
+                z-index: 1;
+            }
+
+            .comic:hover .bubble1 {
+            opacity: 1;
+            transition-delay: 0.8s; /* небольшая задержка для последовательности */
+        }
+
+            .comic:hover .bubble2 {
+                opacity: 1;
+                transition-delay: 0.6s;
+            }
+
+            .comic:hover .bubble3 {
+                opacity: 1;
+                transition-delay: 0.4s;
+            }
+
+            .comic:hover .bubble4 {
+                opacity: 1;
+                transition-delay: 0.2s;
+
+            .comic img {
+                display: block;
+        }
+
+        </style>
+    </head>
+    <body>
+        <header>
+            НГТУ, ФБ, Лабораторная работа 4.
+        </header>
+        
+        <main>
+            <div class="comic">
+                <img src="https://sun9-71.userapi.com/s/v1/if2/qO2mEEB5f7H8MSiHZejVRTdwxFIGCqfBCkvgjxiES5zfGVFrl4RVwzb86UyByNNbc2d6KTald5a-Paz8OGXr_qhu.jpg?quality=96&as=32x18,48x27,72x40,108x61,160x90,240x135,360x202,480x270,540x304,640x360,720x405,1080x607,1280x720&from=bu&u=EnyhOqpTvLeg_3drNfB_yLIAqAnDTtdcq_Mt_1gLcqg&cs=807x454" width="700px"
+            </div>
+
+            <div class="bubble1">Хочу спать!</div>
+            <div class="bubble2"></div>
+            <div class="bubble3"></div>
+            <div class="bubble4"></div>
+        </main>
+
+        <footer>
+            &copy; Воспанчк Виктория, ФБИ-31, 2 курс, 2023
+        </footer>
+    </body>
+</html>
