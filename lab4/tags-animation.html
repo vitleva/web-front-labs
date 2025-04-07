@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Витлева Анастасия Александровна. Лабораторная 4</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-32x32.png">
+    <link rel="icon" href="../favicon-16x16.png">
+    <style>
+        main {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tag {
+            position: absolute;
+            margin: 0;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-weight: bold;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        .tag1 { 
+            font-size: 64px; 
+            top: 35%; 
+            left: 5%; 
+            transform: rotate(-40deg); 
+            color: rgb(91, 34, 34); 
+            animation: float1 5s ease-in-out infinite; 
+        }
+        .tag2 { 
+            font-size: 58px; 
+            top: 30%; 
+            left: 70%; 
+            transform: rotate(-15deg); 
+            color: rgb(128, 62, 62); 
+            animation: float2 5s ease-in-out infinite; 
+        }
+        .tag3 { 
+            font-size: 40px; 
+            top: 25%; 
+            left: 12%; 
+            transform: rotate(25deg); 
+            color: rgb(54, 10, 10); 
+            animation: float3 5s ease-in-out infinite;
+        }
+        .tag4 { 
+            font-size: 59px; 
+            top: 60%; 
+            left: 40%; 
+            transform: rotate(18deg); 
+            color: rgb(176, 0, 0); 
+            animation: float4 5s ease-in-out infinite;
+        }
+        .tag5 { 
+            font-size: 85px; 
+            top: 65%; 
+            left: 60%; 
+            transform: rotate(5deg); 
+            color: rgb(111, 21, 21); 
+            animation: float5 5s ease-in-out infinite;
+        }
+        .tag6 { 
+            font-size: 100px; 
+            top: 60%; 
+            left: 30%; 
+            transform: rotate(0deg); 
+            color: rgb(111, 78, 54); 
+            animation: float6 10s ease-in-out infinite;
+        }
+        .tag7 { 
+            font-size: 44px; 
+            top: 35%; 
+            left: 90%; 
+            transform: rotate(10deg); 
+            color: rgb(118, 19, 19); 
+            animation: float7 5s ease-in-out infinite; 
+        }
+        .tag8 { 
+            font-size: 54px; 
+            top: 70%; 
+            left: 25%; 
+            transform: rotate(18deg); 
+            color: rgb(142, 5, 5); 
+            animation: float8 5s ease-in-out infinite;
+        }
+        .tag9 { 
+            font-size: 40px; 
+            top: 55%; 
+            left: 65%; 
+            transform: rotate(-20deg); 
+            color: rgb(107, 7, 7); 
+            animation: float9 5s ease-in-out infinite; 
+        }
+        .tag10 { 
+            font-size: 80px; 
+            top: 15%; 
+            left: 55%; 
+            transform: rotate(20deg); 
+            color: rgb(151, 56, 56); 
+            animation: float10 5s ease-in-out infinite; 
+        }
+        .tag11 { 
+            font-size: 81px; 
+            top: 10%; 
+            left: 10%; 
+            transform: rotate(-25deg); 
+            color: rgb(187, 8, 8); 
+            animation: float11 5s ease-in-out infinite;
+        }
+        .tag12 { 
+            font-size: 91px;
+            top: 5%; 
+            left: 35%; 
+            transform: rotate(12deg); 
+            color: rgb(0, 0, 0); 
+            animation: float12 5s ease-in-out infinite;
+        }
+        .tag13 { 
+            font-size: 121px; 
+            top: 35%; 
+            left: 45%; 
+            transform: rotate(-18deg); 
+            color: rgb(136, 129, 129); 
+            animation: float13 5s ease-in-out infinite; 
+        }
+        .tag14 { 
+            font-size: 49px; 
+            top: 10%; 
+            left: 85%; 
+            transform: rotate(4deg); 
+            color: rgb(178, 47, 47); 
+            animation: float14 5s ease-in-out infinite;
+        }
+        .tag15 { 
+            font-size: 70px; 
+            top: 55%; 
+            left: 15%; 
+            transform: rotate(-12deg); 
+            color: rgb(0, 0, 0); 
+            animation: float15 5s ease-in-out infinite;
+        }
+
+        .tag16 { 
+            font-size: 50px; 
+            top: 85%; 
+            left: 10%; 
+            transform: rotate(-12deg); 
+            color: rgb(207, 6, 6); 
+            animation: float15 5s ease-in-out infinite;
+        }
+
+        .tag:hover {
+            text-shadow: 0 0 5px rgb(111, 111, 111);
+            z-index: 1; 
+            animation-play-state: paused;
+            cursor: pointer;
+        }
+
+        @keyframes float1 {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(20px, -15px); }
+            100% { transform: translate(0, 0); }
+        }
+        @keyframes float2 {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(10px, -15px); }
+            100% { transform: translate(0, 0); }
+        }
+        @keyframes float3 {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(20px, -10px); }
+            100% { transform: translate(0, 0); }
+        }
+        @keyframes float4 {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(5px, -20px); }
+            100% { transform: translate(0, 0); }
+        }
+        @keyframes float5 {
+            0% { transform: scale(1)  translate(0, 0);}
+            50% { transform: scale(1.2) translate(10px, -20px);}
+            100% { transform: scale(1) translate(0, 0);}
+        }
+        @keyframes float6 {
+            0% { top: 60%; left: 30%; }
+            25% { top: 30%; left: 50%; }
+            50% { top: 10%; left: 20%; }
+            75% { top: 80%; left: 40%; }
+            100% { top: 60%; left: 30%; }
+        }
+        @keyframes float7 {
+            0% { top: 35%; left: 90%; }
+            25% { top: 30%; left: 50%; }
+            50% { top: 10%; left: 20%; }
+            75% { top: 80%; left: 40%; }
+            100% { top: 35%; left: 90%; }
+        }
+        @keyframes float8 {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(5px, -15px); }
+            100% { transform: translate(0, 0); }
+        }
+        @keyframes float9 {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(10px, -10px); }
+            100% { transform: translate(0, 0); }
+        }
+        @keyframes float10 {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(0, -20px); }
+            100% { transform: translate(0, 0); }
+        }
+        @keyframes float11 {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(15px, -10px); }
+            100% { transform: translate(0, 0); }
+        }
+        @keyframes float12 {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(10px, -15px); }
+            100% { transform: translate(0, 0); }
+        }
+        @keyframes float13 {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(5px, -10px); }
+            100% { transform: translate(0, 0); }
+        }
+        @keyframes float14 {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(10px, -15px); }
+            100% { transform: translate(0, 0); }
+        }
+        @keyframes float15 {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(5px, -10px); }
+            100% { transform: translate(0, 0); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная работа 4
+    </header>
+
+    <main>
+        <div class="tag-cloud">
+            <div class="tag tag1">Lit Energy</div>
+            <div class="tag tag2">Genesis</div>
+            <div class="tag tag3">Flash</div>
+            <div class="tag tag4">Target</div>
+            <div class="tag tag5">Adrenaline</div>
+            <div class="tag tag6">Monster</div>
+            <div class="tag tag7">Burn</div>
+            <div class="tag tag8">Red Bull</div>
+            <div class="tag tag9">Jaguar</div>
+            <div class="tag tag10">Mountain Dew</div>
+            <div class="tag tag11">Prime</div>
+            <div class="tag tag12">Tornado</div>
+            <div class="tag tag13">Eon</div>
+            <div class="tag tag14">Gorilla</div>
+            <div class="tag tag15">Hot Cat</div>
+            <div class="tag tag16">by Баста</div>
+        </div>
+    </main>
+
+    <footer>
+        &copy; Витлева Анастасия, ФБИ-31, 2 курс, 2025
+    </footer>
+</body>
+</html>
