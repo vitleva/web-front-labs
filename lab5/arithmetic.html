@@ -89,6 +89,54 @@
              let result = a / b;
              alert(a + ' / ' + b + '= ' +  result); 
          }
+         
+         function showDegree() {
+             let inputA = document.getElementById('numberA');
+             let inputB = document.getElementById('numberB');
+ 
+             let a = parseInt(inputA.value);
+             let b = parseInt(inputB.value);
+             
+             if (a === 0 && b === 0) {
+                 alert("Оба значения не могут быть равны нулю");
+                 inputA.focus();
+                 inputA.select();
+                 inputA.style.color = "red";
+                 inputA.style.borderColor = "red";
+                 inputB.focus();
+                 inputB.select();
+                 inputB.style.color = "red";
+                 inputB.style.borderColor = "red";
+                 return;
+             }
+
+             if(isNaN(a)) {
+                alert('Введите числовое значение в первое поле');
+                inputA.focus();
+                inputA.select();
+                inputA.style.color = 'red';
+                inputA.style.borderColor = 'red';
+                return;
+             }
+
+             if(isNaN(b)) {
+                alert('Введите числовое значение во второе поле');
+                inputB.focus();
+                inputB.select();
+                inputB.style.color = 'red';
+                inputB.style.borderColor = 'red';
+                return;
+             }
+
+             inputA.style.color = '';
+             inputA.style.borderColor = '';
+             
+             inputB.style.color = '';
+             inputB.style.borderColor = '';
+
+             let result = Math.pow(a, b);
+             alert(a + ' в степени ' + b + ' = ' +  result); 
+         }
     </script>
     <style>
         .message {
@@ -101,6 +149,7 @@
             color: black;
             padding: 5px;
             cursor: pointer;
+            margin: 5px;
         }
         header {
             cursor: pointer;
@@ -126,6 +175,7 @@
         <div class="message" onclick="showDiff()">Найти разность чисел</div>
         <div class="message" onclick="showMult()">Найти произведение чисел</div>
         <div class="message" onclick="showDiv()">Найти отношение чисел</div>
+        <div class="message" onclick="showDegree()">Возвести в степень</div>
     </main>
 
     <footer ondblclick="showFooter()">
