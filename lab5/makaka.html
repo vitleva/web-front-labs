@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Витлева Анастасия Александровна. Лабораторная 5</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-32x32.png">
+    <link rel="icon" href="../favicon-16x16.png">
+    <style>
+        main {
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            color: black;
+        }
+        h1 {
+            margin-top: 5px;
+        }
+
+        img {
+            width: 500px;
+            transition: filter 0.2s ease;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .tip {
+            background-color: #e4cbb1;
+            border-left: 5px solid #6b1818;
+            padding: 15px;
+            margin-top: 5px;
+            border-radius: 8px;
+            display: inline-block;
+            text-align: left;
+            max-width: 500px;
+        }
+
+        #filter {
+            margin-top: 10px;
+            font-size: 17px;
+            color: #444;
+        }
+        img {
+            cursor: crosshair;
+        }
+    </style>
+    <script>
+        function filterShow(event) {
+            let img = event.target;
+            let rect = img.getBoundingClientRect();
+            // Определяем, на каком расстоянии от левого края картинки находится курсор
+            let x = event.clientX - rect.left;
+            // Считаем, в каком проценте от ширины картинки находится курсор
+            let width = rect.width;
+            let percent = (x / width) * 100;
+
+            let filter = '';
+            let filterName = '';
+            let filterValue = '';
+
+            if (event.ctrlKey) {
+                filter = 'grayscale(' + percent + '%)';
+                filterName = 'grayscale';
+                filterValue = Math.round(percent) + '%';
+            } else if (event.altKey) {
+                let val = percent * 5;
+                filter = 'brightness(' + val + '%)';
+                filterName = 'brightness';
+                filterValue = Math.round(val) + '%';
+            } else if (event.shiftKey) {
+                filter = 'invert(' + percent + '%)';
+                filterName = 'invert';
+                filterValue = Math.round(percent) + '%';
+            } else {
+                let px = (percent / 100 * 20).toFixed(1);
+                filter = 'blur(' + px + 'px)';
+                filterName = 'blur';
+                filterValue = px + 'px';
+            }
+
+            img.style.filter = filter;
+            document.getElementById('filterName').textContent = filterName;
+            document.getElementById('filterPower').textContent = filterValue;
+        }
+
+        function filterHide(event) {
+            event.target.style.filter = 'none';
+            document.getElementById('filterName').textContent = 'отсутствует';
+            document.getElementById('filterPower').textContent = '0';
+        }
+    </script>
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная работа 5
+    </header>
+
+    <main>
+        <h1>Наведите курсор на изображение</h1>
+
+        <div class="tip">
+            <b>Навигация:</b><br>
+            — Наведите курсор на изображение, чтобы увидеть <b>размытие</b><br>
+            — Удерживайте клавиши для других фильтров:<br>
+            &bull; <b>Ctrl</b> — контраст<br>
+            &bull; <b>Alt</b> — яркость<br>
+            &bull; <b>Shift</b> — насыщенность<br>
+            Чем правее курсор — тем сильнее эффект.
+        </div>
+
+        <br><br>
+
+        <img src="https://i.pinimg.com/736x/17/9c/40/179c403dd2c24f6f36ab6967fa982f66.jpg"
+             onmousemove="filterShow(event)"
+             onmouseout="filterHide(event)">
+
+        <div id="filter">
+            Фильтр: <span id="filterName">отсутствует</span><br>
+            Интенсивность: <span id="filterPower">0</span>
+        </div>
+    </main>
+
+    <footer>
+        &copy; Витлева Анастасия, ФБИ-31, 2 курс, 2025
+    </footer>
+</body>
+</html>
