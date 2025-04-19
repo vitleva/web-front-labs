@@ -20,6 +20,18 @@
             document.getElementById('brightnessOutput').innerText = value;
             document.getElementById('brightnessImage').style.filter = 'brightness(' + value + ')';
         }
+
+        function contrastChange() {
+            let value = document.getElementById('contrastValue').value + '%';
+            document.getElementById('contrastOutput').innerText = value;
+            document.getElementById('contrastImage').style.filter = 'contrast(' + value + ')';
+        }
+
+        function grayscaleChange() {
+            let value = document.getElementById('grayscaleValue').value + '%';
+            document.getElementById('grayscaleOutput').innerText = value;
+            document.getElementById('grayscaleImage').style.filter = 'grayscale(' + value + ')';
+        }
     </script>
     <style>
         div {
@@ -46,6 +58,20 @@
             <span id="brightnessOutput"></span>
         </div>
         <div><img src='https://i.pinimg.com/736x/db/bc/ea/dbbceafdd3f9597e1b38065ef4e4deed.jpg' id='brightnessImage'></div>
+
+        <div>
+            Фильтр contrast:
+            <input type="range" min="0" max="500" value='100' onchange="contrastChange()" id="contrastValue">
+            <span id="contrastOutput"></span>
+        </div>
+        <div><img src='https://i.pinimg.com/736x/37/79/32/377932562e5854c5d132d9a2bb099970.jpg' id='contrastImage'></div>
+
+        <div>
+            Фильтр grayscale:
+            <input type="range" min="0" max="100" value='0' onchange="grayscaleChange()" id="grayscaleValue">
+            <span id="grayscaleOutput"></span>
+        </div>
+        <div><img src='https://i.pinimg.com/736x/99/18/65/991865f33afe2f3996b3a1cb89a7cd77.jpg' id='grayscaleImage'></div>
     </main>
 
     <footer>
