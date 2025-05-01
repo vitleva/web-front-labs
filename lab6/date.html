@@ -29,6 +29,27 @@
             let outFr = document.getElementById('current-dateFr');
             outFr.innerHTML = 'Дата и время для французской локали: ' + today.toLocaleString('fr-FR');
         }
+
+        function ChangeColors() {
+            const header = document.getElementsByTagName('header')[0];
+            const rgb = `rgb(${Math.random() * 225}, ${Math.random() * 225}, ${Math.random() * 225})`;
+            header.style.color = rgb;
+        }
+
+        let timerNum;
+
+        function startChangeColors() {
+            ChangeColors();
+            timerNum = setInterval(ChangeColors, 1000);
+            document.getElementById('start-btn').disabled = true;
+            document.getElementById('stop-btn').disabled = false;
+        }
+
+        function stopChangeColors() {
+            clearInterval(timerNum);
+            document.getElementById('start-btn').disabled = false;
+            document.getElementById('stop-btn').disabled = true;
+        }
     </script>
     <style>
         div {
@@ -38,6 +59,9 @@
             background-color: rgb(221, 209, 182);
             color: black;
             border-radius: 10px;
+        }
+        header {
+            transition: color 0.5s;
         }
     </style>
 </head>
@@ -54,6 +78,10 @@
         <div id="current-dateAr"></div>
         <div id="current-dateDe"></div>
         <div id="current-dateFr"></div>
+        <div>
+            <button onclick="startChangeColors()" id="start-btn">Старт</button>
+            <button onclick="stopChangeColors()" disabled id="stop-btn">Стоп</button>
+        </div>
     </main>
 
     <footer>
