@@ -11,19 +11,30 @@
     <script>
         function showMutipleTable() {
             let tbl = document.getElementById('mtable');
+            let multiple = parseInt(document.getElementById('numberA').value) || 7;
+            let first = parseInt(document.getElementById('numberB').value) || 1;
+            let last = parseInt(document.getElementById('numberC').value) || 10;
+            
+            // Меняем местами первое и конечное число, когда first > last
+            if (first > last) {
+                [first, last] = [last, first]; 
+            }
+            
             tbl.innerHTML = '<h1>Таблица умножения</h1>';
-            for(i = 1; i <= 10; i++) {
-                let s = `<div>${i} * 7 = ${i*7}</div>`;
-                tbl.innerHTML += s;
+            for(let i = first; i <= last; i++) {
+                tbl.innerHTML += `<div>${i} × ${multiple} = ${i * multiple}</div>`;
             }
         }
     </script>
     <style>
         #mtable {
+            width: 500px;
             padding: 10px;
             text-align: center;
             font-size: 20px;
-            border: 2px solid
+            border: 2px solid;
+            margin: auto;
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -34,6 +45,10 @@
 
     <main>
         <div id="mtable"></div>
+        <label>Умножить на: <input type="number" value="7" id="numberA"></label><br>
+        <label>Начать с: <input type="number" value="1" id="numberB"></label><br>
+        <label>Закончить на: <input type="number" value="10" id="numberC"></label><br>
+        <input type="button" value="Таблица" onclick="showMutipleTable()">
     </main>
 
     <footer>
