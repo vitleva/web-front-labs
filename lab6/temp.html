@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Витлева Анастасия Александровна. Лабораторная 6</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-32x32.png">
+    <link rel="icon" href="../favicon-16x16.png">
+    <script>
+        function showTemperatures() {
+          const chart = document.getElementById('chart');
+          const inputDay = document.getElementById('day-input');
+          const infoBox = document.getElementById('info');
+          const spanDay = document.getElementById('info-day');
+          const spanMax = document.getElementById('info-max');
+          const spanMin = document.getElementById('info-min');
+    
+          const tempData = [];
+    
+          for (let i = 0; i < 30; i++) {
+            const max = Math.floor(Math.random() * 25) - 5;
+            const min = max - Math.floor(Math.random() * 10) - 1;
+            tempData.push({ day: i + 1, max, min });
+          }
+    
+          const allTemps = tempData.flatMap(t => [t.max, t.min]);
+          const maxTemp = Math.max(...allTemps);
+          const minTemp = Math.min(...allTemps);
+          const range = maxTemp - minTemp;
+    
+          tempData.forEach(entry => {
+            const colWrapper = document.createElement('div');
+            colWrapper.className = 'column-wrapper';
+            colWrapper.dataset.day = entry.day;
+    
+            const maxHeight = ((entry.max - minTemp) / range) * 250;
+            const minHeight = ((entry.min - minTemp) / range) * 250;
+            const diffHeight = maxHeight - minHeight;
+    
+            const minDiv = document.createElement('div');
+            minDiv.className = 'bar-min';
+            minDiv.style.height = `${Math.max(minHeight, 20)}px`;
+            const minLabel = document.createElement('span');
+            minLabel.textContent = `${entry.min}°C`;
+            minDiv.appendChild(minLabel);
+    
+            const maxDiv = document.createElement('div');
+            maxDiv.className = 'bar-max';
+            maxDiv.style.height = `${Math.max(diffHeight, 20)}px`;
+            const maxLabel = document.createElement('span');
+            maxLabel.textContent = `${entry.max}°C`;
+            maxDiv.appendChild(maxLabel);
+    
+            const dayLabel = document.createElement('div');
+            dayLabel.className = 'label-day';
+            dayLabel.textContent = entry.day;
+            
+            colWrapper.appendChild(maxDiv);
+            colWrapper.appendChild(minDiv);
+            colWrapper.appendChild(dayLabel);
+            chart.appendChild(colWrapper);
+          });
+    
+          inputDay.addEventListener('input', event => {
+            const day = parseInt(event.target.value);
+            document.querySelectorAll('.column-wrapper').forEach(wrapper => {
+              wrapper.classList.remove('selected');
+            });
+    
+            if (day >= 1 && day <= 30) {
+              const selected = document.querySelector(`.column-wrapper[data-day="${day}"]`);
+              if (selected) {selected.classList.add('selected');
+                const data = tempData[day - 1];
+                spanDay.textContent = data.day;
+                spanMax.textContent = data.max;
+                spanMin.textContent = data.min;
+                infoBox.style.display = 'block';
+              }
+            } else {
+              infoBox.style.display = 'none';
+            }
+          });
+        }
+    </script>
+    <style>
+        h1 {
+            text-align: center;
+        }
+
+        .chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            height: 300px;
+            margin-bottom: 20px;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .column-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 40px;
+            position: relative;
+        }
+
+        .label-day {
+            margin-top: 5px;
+            font-size: 12px;
+        }
+
+        .bar-min, .bar-max {
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            overflow: hidden;
+        }
+
+        .bar-min {
+            background-color: #87cefa;
+        }
+
+        .bar-max {
+            background-color: #ff7f50;
+        }
+
+        .bar-min span, .bar-max span {
+            margin-top: 2px;
+            z-index: 1;
+        }
+
+        .selected .bar-max {
+            background-color: #d64824;
+        }
+
+        .selected .bar-min {
+            background-color: #16599c;
+        }
+
+        .info-box {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid rgb(139, 38, 38);
+            border-radius: 5px;
+            display: none;
+        }
+
+        input[type="number"] {
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body onload="showTemperatures()">
+    <header>
+        НГТУ, ФБ, Лабораторная работа 6.
+    </header>
+
+    <main>
+        <h1>Температуры за месяц</h1>
+        <div class="chart" id="chart"></div>
+        <div>
+            <label for="day-input">Введите номер дня (от 1 до 30):</label>
+            <input type="number" id="day-input" min="1" max="30">
+        </div>
+        <div class="info-box" id="info">
+            <p>День: <span id="info-day"></span></p>
+            <p>Максимальная температура: <span id="info-max"></span>°C</p>
+            <p>Минимальная температура: <span id="info-min"></span>°C</p>
+        </div>
+    </main>
+
+    <footer>
+        &copy; Витлева Анастасия, ФБИ-31, 2 курс, 2025
+    </footer>
+</body>
+</html>
