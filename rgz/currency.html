@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Курс валют</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="icon" type="image/png" href="icons/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="icons/favicon.svg" />
+  <link rel="shortcut icon" href="icons/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png" />
+  <link rel="manifest" href="icons/site.webmanifest" />
+  <script>
+    let currentRate = 1;
+
+    async function fetchRates() {
+      const response = await fetch("https://www.cbr-xml-daily.ru/daily_json.js");
+      const data = await response.json();
+      currentRate = data.Valute.TMT.Value;
+      document.getElementById("rate").textContent = currentRate.toFixed(2);
+    }
+
+    function convertToTMT() {
+      const rub = parseFloat(document.getElementById("rub").value);
+      if (!isNaN(rub)) {
+        document.getElementById("tmt").value = (rub / currentRate).toFixed(2);
+      }
+    }
+
+    function convertToRUB() {
+      const tmt = parseFloat(document.getElementById("tmt").value);
+      if (!isNaN(tmt)) {
+        document.getElementById("rub").value = (tmt * currentRate).toFixed(2);
+      }
+    }
+
+    async function loadChart() {
+      const today = new Date();
+      const fetchTasks = [];
+
+      for (let i = 0; i < 30; i++) { // 15 дней
+        const date = new Date(today);
+        date.setDate(today.getDate() - i);
+        const yyyy = date.getFullYear();
+        const mm = String(date.getMonth() + 1).padStart(2, '0');
+        const dd = String(date.getDate()).padStart(2, '0');
+        const label = `${dd}.${mm}`;
+        const url = `https://www.cbr-xml-daily.ru/archive/${yyyy}/${mm}/${dd}/daily_json.js`;
+
+        fetchTasks.push(
+          fetch(url)
+            .then(res => res.ok ? res.json() : null)
+            .then(data => {
+              if (data && data.Valute && data.Valute.TMT) {
+                return { label, value: data.Valute.TMT.Value };
+              }
+              return null;
+            })
+            .catch(() => null)
+        );
+      }
+
+      const results = await Promise.all(fetchTasks);
+      const filtered = results.filter(item => item !== null).reverse();
+
+      const labels = filtered.map(item => item.label);
+      const values = filtered.map(item => item.value);
+
+      const ctx = document.getElementById('rateChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Курс TMT к RUB',
+            data: values,
+            backgroundColor: '#ffffff'
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: false,
+              suggestedMin: Math.min(...values) * 0.995,
+              suggestedMax: Math.max(...values) * 1.005
+            }
+          },
+          onClick: (e, items) => {
+            if (items.length > 0) {
+              const index = items[0].index;
+              alert(`Дата: ${labels[index]}, Курс: ${values[index]}`);
+            }
+          }
+        }
+      });
+    }
+
+    fetchRates();
+    loadChart();
+  </script>
+</head>
+<body>
+  <header>
+    <img src="images/logo.png" width="160" height="40px">
+  </header>
+
+  <main>
+    <div class="banner">
+      <h1 class="banner-text">Калькулятор валют</h1>
+    </div>
+    <div class="text" style="padding-top: 40px;">
+      <label>Рубли: <input type="number" id="rub" oninput="convertToTMT()"></label>
+      <label>Манаты: <input type="number" id="tmt" oninput="convertToRUB()"></label>
+      <p>Текущий курс TMT к RUB: <span id="rate">Загрузка...</span></p>
+      <canvas id="rateChart" width="400" height="200"></canvas>
+    </div>
+  </main>
+
+  <div class="bottom-panel">
+    <a href="company.html"><img src="icons/home.png" alt="О компании"></a>
+    <a href="news.html"><img src="icons/news.png" alt="Новости"></a>
+    <a href="currency.html"><img src="icons/currency.png" alt="Курс"></a>
+    <a href="contacts.html"><img src="icons/contact.png" alt="Контакты"></a>
+    <a href="video.html"><img src="icons/video.png" alt="Видео"></a>
+  </div>
+</body>
+</html>
