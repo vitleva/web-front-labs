@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Витлева Анастасия Александровна. Лабораторная 7</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-32x32.png">
+    <link rel="icon" href="../favicon-16x16.png">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        #chart-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fffbe6;
+            border: 2px solid rgb(139, 38, 38);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        #current-info {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        canvas {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная работа 7
+    </header>
+
+    <main>
+        <h1>Прогноз и параметры погоды (1 день)</h1>
+        <div id="current-info">Загрузка данных...</div>
+        <div id="chart-container">
+            <canvas id="weatherChart"></canvas>
+        </div>
+        <p style="text-align: center;">
+            Источник: <a href="https://open-meteo.com/" target="_blank">open-meteo.com</a>
+        </p>
+    </main>
+
+    <footer>
+        &copy; Витлева Анастасия, ФБИ-31, 2 курс, 2025
+    </footer>
+
+    <script>
+        const url = "https://api.open-meteo.com/v1/forecast?" +
+            "latitude=55.0415&longitude=82.9346" +
+            "&hourly=temperature_2m,apparent_temperature" +
+            "&current_weather=true" +
+            "&timezone=Asia%2FBangkok";
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const hours = data.hourly.time.slice(0, 24);
+                const temperature = data.hourly.temperature_2m.slice(0, 24);
+                const apparent = data.hourly.apparent_temperature.slice(0, 24);
+
+                const labels = hours.map(t => t.split("T")[1]); // Время без даты
+
+                const ctx = document.getElementById('weatherChart').getContext('2d');
+
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'Температура (°C)',
+                                data: temperature,
+                                backgroundColor: 'rgba(139, 38, 38, 0.7)'
+                            },
+                            {
+                                label: 'Ощущается как (°C)',
+                                data: apparent,
+                                backgroundColor: 'rgba(38, 139, 84, 0.7)'
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            title: {
+                                display: true,
+                                text: 'Прогноз на сегодня (по часам)'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Температура, °C'
+                                }
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Время (часы)'
+                                }
+                            }
+                        }
+                    }
+                });
+
+                const current = data.current_weather;
+                const currentInfo = `
+                    <p>Текущая температура: <strong>${current.temperature}°C</strong></p>
+                    <p>Ощущается как: <strong>${apparent[current.time.slice(11, 13)] ?? 'н/д'}°C</strong></p>
+                    <p>Время: <strong>${current.time.replace('T', ' ')}</strong></p>
+                `;
+                document.getElementById('current-info').innerHTML = currentInfo;
+            });
+    </script>
+</body>
+</html>
