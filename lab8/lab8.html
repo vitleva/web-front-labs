@@ -45,7 +45,7 @@
             <div>Телефон: {{ user.tel }}</div>
             <hr>
 
-            <div class="card" style="width: 18rem;">
+            <div class="card" style="width: 20rem;">
                 <div class="card-body">
                     <h2>Цветы</h2>
                     <ul class="list-group">
@@ -53,11 +53,22 @@
                             <span>
                                 <i class="bi bi-flower1 me-2"></i> {{ flower }}
                             </span>
-                            <button @click="edit(id, flower)" class="btn btn-outline-secondary btn-sm">
-                                <i class="bi bi-pencil-square"></i>
-                            </button>
+                            <div>
+                                <button @click="edit(id, flower)" class="btn btn-outline-secondary btn-sm me-1">
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+                                <button @click="remove(id)" class="btn btn-outline-danger btn-sm">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
                         </li>
                     </ul>
+                    <div class="mt-3">
+                        <input type="text" v-model="newFlower" class="form-control d-inline w-auto me-2" placeholder="Новый цветок">
+                        <button @click="addFlower" class="btn btn-success">
+                            <i class="bi bi-plus-circle"></i> Добавить
+                        </button>
+                    </div>
                 </div>
             </div>
             <hr>
@@ -126,6 +137,7 @@
                     a: 1,
                     b: 10,
                     result: '',
+                    newFlower: '',
                 }
             },
             methods: {
@@ -146,6 +158,15 @@
                 sum() {
                     this.result = this.a + this.b;
                 },
+                remove(id) {
+                    this.flowers.splice(id, 1);
+                },
+                addFlower() {
+                    if (this.newFlower.trim() !== '') {
+                        this.flowers.push(this.newFlower.trim());
+                        this.newFlower = '';
+                    }
+                }
             }
         }).mount('#app');
     </script>
