@@ -55,10 +55,14 @@
                 </thead>
                 <tr v-for="(flower, id) in flowers">
                     <td>
-                        {{flower}}
+                        <span v-if="flower === null">Загружается...</span>
+                        <span v-else>{{flower}}</span>
                     </td>
                     <td>
-                        <button @click="edit(id, flower)" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></button>
+                        <button @click="edit(id, flower)" class="btn btn-dark" v-if="flower !== null">
+                            <i class="bi bi-pencil-fill"></i>
+                        </button>
+                        <div class="spinner-border" role="status" v-if="flower === null"></div>
                     </td>
                 </tr>
             </table>
@@ -76,10 +80,10 @@
                     <input type="number" v-model = "b" class="form-control">
                 </div>
                 <div class="col-auto">
-                    <button @click="sum" class="btn btn-primary">=</button>
+                    <button @click="sum" class="btn btn-dark">=</button>
                 </div>
                 <div class="col-auto">
-                    <span class="badge text-bg-primary fs-5">{{ result }}</span>
+                    <span class="badge text-bg-dark fs-5">{{ result }}</span>
                 </div>
             </div>
         </div>
@@ -116,7 +120,7 @@
                 },
                 edit(id, flower) {
                     let newName = prompt('Введите имя цветка', flower);
-                    this.flowers[id] = 'сохранение...';
+                    this.flowers[id] = null;
                     setTimeout(() => {
                         this.flowers[id] = newName;
                     }, 3000);
